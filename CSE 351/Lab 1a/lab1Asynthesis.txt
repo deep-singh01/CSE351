@@ -1,0 +1,34 @@
+******************************
+* Lab 1a Synthesis Questions *
+******************************
+Name(s): Deepesh Singh
+NetID(s): dsingh01
+
+
+-----------------------------------------------------------
+1) Use/Benefit and Equation:
+Pointer arithmetic is beneficial because it allows for an efficient and more flexible navigation through data structures and arrays. Using addition, subtraction, and other operators, you can use pointers for a multitude of functions such as to access or traverse memory locations.
+
+The relationship between arrays and pointers is that the array's name represents the address of the first element of the array, which is essentially a pointer. Pointers can also be used to access, modify, and traverse the array with pointer arithemetic. 
+
+Formula: if int arr[4] and int* x = arr, then
+arr == x == &arr[0]
+and arr[2] == x[2] == *(x+2)
+
+
+-----------------------------------------------------------
+2) Steps:
+Assuming you are given two pointers: ptr1 and ptr2, the first step regardless of what type the pointers are is to cast the pointers as a long and set them as the value for two long variables: x1 and x2 (long x1 = (long) ptr1 and long x2 = (long) ptr2). This will remove the issue of the pointers being of different types and make the pointers numbers rather than addresses.
+ 
+Then, you can subtract them both (ptr2 - ptr1). If the pointers were of the same type (i.e. int*) and you subtracted them without casting, the value you would get would be the number of the specified data types (i.e. int) between the two pointers (i.e. 4 ints).
+  
+Finally, if the value you get is negative, you know ptr2 precedes ptr1 in memory. Given that our system uses two's complement, we can flip the bits of the value using (~) and add 1 to get the absolute value of the difference. If the value you get is positive, we have the difference between the two pointers in bytes.
+
+-----------------------------------------------------------
+3) Explain:
+The parameters of swap_ints must be pointers as we are not aiming to swap two arbitrary values, but two specific values with their unique addresses. This is only possible with pointers as they allow you to directly modify the values at the stored addresses by using their dereferencing operator (*).
+
+If the parameters of the function swap_ints were integers instead of pointers, you would simply be passing their values and not their memory addresses. As a result, the function would receive copies of the integers, and any changes made inside the function would only affect the local copies, not the original values at the specific addresses.
+
+
+-----------------------------------------------------------

@@ -1,0 +1,32 @@
+*****************************
+* Lab 3 Synthesis Questions *
+*****************************
+Name(s): Deepesh Singh, Diana Kim
+NetID(s): dsingh01, bobo5
+
+
+-----------------------------------------------------------
+1) Explain: The cause of this segmentation fault is due to an improper access of memory (memory that part_2 is not allowed to be access or that doesn't exist), which is caused by memory beyond the space allocated for the array being overwritten from an overextension of the bounds of the array. 
+The value that gets corrupted is the return address of the function part_2. This causes the segmentation fault because the return address has been overwritten, so as stated earlier, when popped, the program is attempting to access memory it is not allowed or that doesn't exist. The assembly instruction that causes the segmentation fault to occur at the moment it is executed is 0x000000000040130f <part_2 + 63> ret. 
+
+
+-----------------------------------------------------------
+2) Instruction 1: <part_2> sub $0x48 %rsp
+   Purpose: %rsp allocates the space for the function part_2 on the stack. When the array goes beyond this space, it overwrites the return address that would be popped by the function after you add back 0x48 to %rsp on <part_2 + 59>
+            $0x48 = 72 bytes of total space that can be filled as a part of function part_2.
+
+   Instruction 2: <part_2 + 14> lea 0x10(%rsp), %rax
+   Purpose: %rax is eventually moved into %rdi, which is used as the first argument of the first call to fill_array. It essentially serves as the address to
+ the start of the array.
+            0x10(%rsp) means the array will start 0x10 = 16 bytes "above" the address of %rsp. As a result, regardless of its stated length, the array will have 72 - 0x10 (16) = 56 bytes of available space.
+
+   Minimum length to cause a seg fault: 15
+   Calculation: (0x48 - 0x10 bytes)/4 bytes/int = 14 ints < 15 ints
+   When disassembling part_2 we see that in the first line 0x48 is subtracted from %rsp, which stores the stack pointer. Thus, we know we have 0x48 = 72 bytes of allocated space for the stack at the moment. Then, at <part_2 + 14>, we see an address 0x10 = 16 bytes above %rsp is stored in %rax. The value in %rax is consequently moved into %rdi on line <part_2 + 24>, which we know is used for the first argument when we call a function (fill_array). Putting it all together, if there are a total of 72 bytes avaible and the start of the array starts 16 bytes ahead of the start of the available space, we have 72 - 16 = 56 bytes available. Since each int is 4 bytes, we can sufficiently store 56/4 = 14 ints on the stack, so anything above that will cause a segmentation fault.  
+-----------------------------------------------------------
+3) Agree or Disagree: Disagree
+   Explain: Creating the array on the Heap doesn't inherently eliminate the possibility of segmentation faults. Even though dynamic memory allocation allows for more flexibility in managing memory, segmentation faults can still occur from improperly accessing memory beyond the allocated space of a heap-stored array or writing memory beyond the available space in a heap.
+
+
+
+-----------------------------------------------------------

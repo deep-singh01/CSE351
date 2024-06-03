@@ -1,0 +1,47 @@
+*****************************
+* Lab 4 Synthesis Questions *
+*****************************
+Name(s): Deepesh Singh 
+NetID(s): dsingh01
+
+
+-----------------------------------------------------------
+1) Instructions in the nested loops that access memory
+   lab0.d:    11
+   List of instructions for lab0.d:
+  4009a6:       8b 55 ec                mov    -0x14(%rbp),%edx
+  4009a9:       8b 45 e8                mov    -0x18(%rbp),%eax
+  4009af:       8b 55 e4                mov    -0x1c(%rbp),%edx
+  4009b2:       8b 4d e8                mov    -0x18(%rbp),%ecx
+  4009b5:       8b 45 ec                mov    -0x14(%rbp),%eax
+  4009b8:       89 ce                   mov    %ecx,%esi
+  4009ba:       89 c7                   mov    %eax,%edi
+  4009bc:       e8 78 ff ff ff          callq  400939 <bigArrayIndex>
+  4009cb:       48 8b 45 d8             mov    -0x28(%rbp),%rax
+  4009d2:       8b 55 e4                mov    -0x1c(%rbp),%edx
+  4009d7:       89 10                   mov    %edx,(%rax)
+   lab0opt.d: 1
+   List of instructions for lab0opt.d:
+  4009bb:       89 0c 96                mov    %ecx,(%rsi,%rdx,4)
+
+-----------------------------------------------------------
+2) Where are the loop variables stored in lab0.d:
+   i: -0x14(%rbp) 
+   j: -0x18(%rbp)
+   k: -0x1c(%rbp)
+-----------------------------------------------------------
+3) Corresponding values in lab0opt.d:
+   %edx: i 
+   %ecx: k
+-----------------------------------------------------------
+4) Effect on number of misses: Increase
+
+   Explain: If the starting address of matrix A did not map to the beginning of a cache block, the number of misses will increase since each element access might pull in a cache block that contains only partially useful data. In other words, data that you would have got from a single block will now require you to load multiple blocks, which results in more misses and decreased performance.
+
+
+-----------------------------------------------------------
+5) Effect on number of misses: Increase
+
+   Explain: If I were to run this code for a matrix of size 57 x 71, the number of misses will also likely increase. Since the program I currently have is "optimized" for a 64 x 64 matrix with a cache block size of 4, the same access pattern/strategy might not align with a matrix of size 57 x 71, which would lead to more misses. Not to mention, a 64 x 64 matrix is a square matrix and a 57 x 71 matrix is a rectangle matrix, which has further implications on the arrangement of data, and that can also lead to more cache misses.
+
+-----------------------------------------------------------

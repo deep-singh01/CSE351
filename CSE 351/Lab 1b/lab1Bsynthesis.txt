@@ -1,0 +1,42 @@
+******************************
+* Lab 1b Synthesis Questions *
+******************************
+Name(s): Deepesh Singh  
+NetID(s): dsingh01
+
+
+-----------------------------------------------------------
+1) Benefit 1: With 8 bits to store a unique item id instead of the previous 6, there are a greater number of possible ids and consequently, more items that can be represented. This serves well for actual implementation purposes as stores are likely to have more than 64 (2^6) unique items.
+
+   Benefit 2: Since every individual bit no longer represents 1 unit of a specified item and now represents an integer amount, the potential capacity of units for an item is greatly increased. This is beneficial if item counts usually exceed 10 units. Not to mention, getting the total number of items, adding items, and subtracting items are also easier to do.
+
+   Benefit 3: From a readability and interpretation standpoint, given that a section is 2 bytes, having the id and the section spaces both be 1 byte, makes it easier to understand and manipulate for humans. The bitmasks for both would be the same (0xFF), obviously the bit sizes would be the same (8), and the methods for both would be more or less the same besides the fact that the id would be the 8 most significant bits and the spaces would be the 8 least significant. Also, both the id and spaces could also be represented using a char.  
+
+   Drawback: Relating back to practical use, if the number of unique items are not greater than 64 or are generally far smaller than 256, there's no reason to use 8 bits for ids. Likewise, if the number of units for a specfic item doesn't exceed 10 or 8, the 8 bits for spaces does not need to represent an integer. Additionally, having every individual bit represent a space for an item allows for more specificity as to where an item needs to be restocked.  
+
+-----------------------------------------------------------
+2) Difference? Y/[N]
+
+   Explain: Since y can only be declared once, both statements must be of the same type and signage, so there's no difference between using the two statements in your code. At face value, y = -1; is setting y to a decimal number (-1) and y = 0xFFFFFFFF; is setting y to a hex number (equivalent to 2^32-1 in decimal). Given that the first statement is an integer and the second statement is 4 bytes, let's assume y is of the integer data type (4 bytes).
+
+Now we have two scenarios: (1) in both statements y is (un)signed, and (2) the statements use 2 different variables, which have different signage (one is signed and the other is unsigned). 
+
+(1) If in both statements y is unsigned, then the uses of both statements are the same as unsigned int y = -1; is equivalent to setting y to the max representable value, which is 2^32-1 = 0xFFFFFFFF, and that is equivalent to the second statement. If in both statements y is signed, then the uses of both statements are again the same as signed int y = 0xFFFFFFFF; (in two's complement) is equivalent to setting y to -1, which is equivalent to the first statement.
+Example:
+unsigned int y;
+y = -1;
+printf("y = %d\n", y); --> will print 2^32-1 = 4294967295
+y = 0xFFFFFFFF;
+printf("y = %d\n", y); --> will also print 2^32-1 = 4294967295
+
+(2) If in the first statement we have a variable declared y_signed that is signed and in the second statement we have y_unsigned that is unsigned, the uses of both statements would be different. In the first statement, the value stored in y_signed would be -1, whereas in the second statement, the value store in y_unsigned would be 2^32-1 as mentioned earlier.  
+Example:
+signed int y_signed = -1;
+printf("y = %d\n", y_signed); --> will print -1
+unsigned int y_unsigned = 0xFFFFFFFF;
+printf("y = %d\n", y_unsigned); --> will print 2^32-1 = 4294967295
+-----------------------------------------------------------
+3) Explain: Comparing two floating-point numbers using the equality operators (== or !=) can be problematic due to the inherent limitations of the representation of real numbers in a finite computer system. This means not all real numbers can be accurately represented, which can lead to rounding errors while performing operations or trying to represent a specific number as well as small discrepancies between seemingly equal numbers. Additionally, certain arithmetic operations, such as those involving subtraction or division, can also magnify the impact of rounding errors.
+
+   Considerations: When choosing a threshold value to compare against the difference between two floating-point numbers, you should consider the magnitude of numbers used in the difference, the precision needed in the calculation/comparison, and perhaps any operations that were performed before the difference on the two numbers involved. Smaller numbers require a smaller threshold value, high precision requires a smaller threshold value, and depending on the operations before on the numbers earlier a more strict or loose threshold value may be applicable.
+

@@ -1,0 +1,20 @@
+*****************************
+* Lab 5 Synthesis Questions *
+*****************************
+Name(s): Deepesh Singh 
+NetID(s): dsingh01
+
+
+-----------------------------------------------------------
+1) Alignment: 16 bytes
+   Reasoning: I began by adding a malloc statement before the malloc for class_grades and I changed the number of bytes I entered into the statement by a factor of 2 starting from 2 (i.e. 2, 4, 8, 16, 32, 64, 128). Then, I kept track of the addresses that were printed from the fill_array call. After I collected all the addresses, I converted them into decimal numbers and found the greatest common divisor. This resulted in 16. 
+
+
+
+-----------------------------------------------------------
+2) Boundary Tag Size:  8 bytes
+   Reasoning: Since I knew the alignment was 16 and thus, the minimum payload size was 16 bytes, I started my malloc statement back at 16 and then got the addresses for malloc statements that were a multiple of 16 (i.e. 16, 32, 48, 64). Looking at the addresses, I noticed that they changed every 32 bytes, so I concluded the minimum block size was 32 bytes. With both a header and footer, this meant the boundary tag size was 8 bytes.   
+
+
+
+-----------------------------------------------------------
